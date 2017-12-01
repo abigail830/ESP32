@@ -1,6 +1,4 @@
-ssid="walkghost"
-password="walkghost"
-
+import WifiProfile
 
 def connectSTA():
     import network
@@ -12,7 +10,7 @@ def connectSTA():
         return
 
     station.active(True)
-    station.connect(ssid, password)
+    station.connect(WifiProfile.ssid, WifiProfile.password)
 
     while station.isconnected() == False:
         pass

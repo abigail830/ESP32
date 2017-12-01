@@ -1,0 +1,3 @@
+ssid="walkghost"
+password="walkghost"
+
