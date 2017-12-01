@@ -5,9 +5,9 @@ def getWifiProfile():
    return profileDictionary
 
 
-def getWifiProfile(userID, pwd):
+def setWifiProfile(userID, pwd):
    f=open('WifiProfile.py','w')
-   f.write('ssid=\"userID\"\n')
-   f.write('password=\"pwd\"\n')
+   f.write('ssid=\"'+userID+'\"\n')
+   f.write('password=\"'+pwd+'\"\n')
    f.close()
 
