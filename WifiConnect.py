@@ -7,7 +7,8 @@ def connectSTA():
 
     if station.isconnected() == True:
         print("Already connected")
-        return
+        ip=station.ifconfig() 
+        return ip[0] 
 
     station.active(True)
     station.connect(WifiProfile.ssid, WifiProfile.password)
@@ -16,5 +17,7 @@ def connectSTA():
         pass
 
     print("Connection successful")
-    print(station.ifconfig())
+    ip = station.ifconfig()
+    print(ip)
+    return ip[0]
 
