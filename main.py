@@ -1,0 +1,3 @@
+import WifiConnect
+WifiConnect.connectSTA()
+
