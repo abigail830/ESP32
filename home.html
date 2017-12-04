@@ -1,52 +1,261 @@
+
 <!DOCTYPE html>
-	<html lang="en">
-	  <head>
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content=“This is the web using for ELSA printer“>
-	    <meta name="author" content=“beets3d.cn”>
-	    <link rel="icon" href="../image/favicon.png”>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	    <title>zSlicer</title>
+    <title>zSlicer</title>
 
-	    <!-- Bootstrap core CSS -->
-	    <link href=“../css/bootstrap.min.css" rel="stylesheet">
+    <style>
 
-	    <!-- Custom styles for this template -->
-	    <link href="../css/narrow-jumbotron.css" rel="stylesheet">
-	  </head>
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color:#333
+}
 
-	  <body>
-	    <div class="container">
-	      <div class="header clearfix">
-	        <nav>
-	          <ul class="nav nav-pills float-right">
-	            <li class="nav-item">
-	              <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-	            </li>
-	            <li class="nav-item">
-	              <a class="nav-link" href=“/network”> Network Config</a>
-	            </li>
-	            <li class="nav-item">
-	              <a class="nav-link" href="/print"> Print</a>
-	            </li>
-	          </ul>
-	        </nav>
-	        <h3 class="text-muted">zSlicer</h3>
-	      </div>
+p {
+    padding: 10px;
+}
 
-	      <div class="jumbotron">
-	        <h2 class="display-3">Getting start with zSlicer</h2>
-	        <p class="lead">Wonderful slicing utility for 3D printing</p>
-	        <p><a class="btn btn-lg btn-success" href=“/print” role="button">Make use of it today</a></p>
-	      </div>
+#wrapper {
+    margin: 0 auto;
+    width: 80%;
+}
 
-	      <footer class="footer">
-	        <p>&copy; Beets3d China 2017</p>
-	      </footer>
+#navigation {
+    float: left;
+    height: 40px;
+    width: 1000px;
+    background: #FFFFFF;
+    margin-top:10px;
+}
 
-	    </div> <!-- /container -->
+#content {
+    float: left;
+    background: #FFFFFF;
+    width: 80%;
+    height: 300px;
+    margin: 10px 10px 10px 10px;
+    padding: 6px 6px 4px 6px;
+    text-align:center;
 
-	  </body>
-	</html>
+}
+
+#footer {
+    height: 40px;
+    width: 80%;
+    background: #FFFFFF;
+    clear: both;
+    text-align:center;
+}
+
+.testbutton {
+  font-family: 'arial black';
+  color: #1D1D21 !important;
+  font-size: 15px;
+  text-shadow: 1px 1px 0px #7CACDE;
+  box-shadow: 2px 2px 0px #2478BD;
+  padding: 9px 40px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #2478BD;
+  background: #63B8EE;
+  background: linear-gradient(top,  #3A92DA,  #2478BD);
+  background: -ms-linear-gradient(top,  #3A92DA,  #2478BD);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3A92DA), to(#2478BD));
+  ba
+  ckground: -moz-linear-gradient(top,  #3A92DA,  #2478BD);
+}
+.testbutton:hover {
+  color: #14396A !important;
+  background: #468CCF;
+  background: linear-gradient(top,  #468CCF,  #63B8EE);
+  background: -ms-linear-gradient(top,  #468CCF,  #63B8EE);
+  background: -webkit-gradient(linear, left top, left bottom, from(#468CCF), to(#63B8EE));
+  background: -moz-linear-gradient(top,  #468CCF,  #63B8EE);
+}
+#menu-bar {
+  width: 80%;
+  margin: 0px 0px 0px 0px;
+  padding: 6px 6px 4px 6px;
+  height: 40px;
+  line-height: 100%;
+  border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  box-shadow: 2px 2px 3px #666666;
+  -webkit-box-shadow: 2px 2px 3px #666666;
+  -moz-box-shadow: 2px 2px 3px #666666;
+  background: #8B8B8B;
+  background: linear-gradient(top,  #3A92DA,  #2478bd);
+  background: -ms-linear-gradient(top,  #3A92DA,  #2478bd);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3A92DA), to(#2478bd));
+  background: -moz-linear-gradient(top,  #3A92DA,  #2478bd);
+  border: solid 1px #6D6D6D;
+  position:relative;
+  z-index:999;
+}
+#menu-bar li {
+  margin: 0px 0px 6px 0px;
+  padding: 0px 6px 0px 6px;
+  float: left;
+  position: relative;
+  list-style: none;
+}
+#menu-bar a {
+  font-weight: bold;
+  font-family: arial;
+  font-style: normal;
+  font-size: 14px;
+  color: #E7E5E5;
+  text-decoration: none;
+  display: block;
+  padding: 6px 20px 6px 20px;
+  margin: 0;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  text-shadow: 2px 2px 3px #000000;
+}
+#menu-bar li ul li a {
+  margin: 0;
+}
+#menu-bar .active a, #menu-bar li:hover > a {
+  background: #0399D4;
+  background: linear-gradient(top,  #EBEBEB,  #A1A1A1);
+  background: -ms-linear-gradient(top,  #EBEBEB,  #A1A1A1);
+  background: -webkit-gradient(linear, left top, left bottom, from(#EBEBEB), to(#A1A1A1));
+  background: -moz-linear-gradient(top,  #EBEBEB,  #A1A1A1);
+  color: #444444;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  text-shadow: 2px 2px 3px #FFFFFF;
+}
+#menu-bar ul li:hover a, #menu-bar li:hover li a {
+  background: none;
+  border: none;
+  color: #666;
+  -box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+#menu-bar ul a:hover {
+  background: #0399D4 !important;
+  background: linear-gradient(top,  #04ACEC,  #0186BA) !important;
+  background: -ms-linear-gradient(top,  #04ACEC,  #0186BA) !important;
+  background: -webkit-gradient(linear, left top, left bottom, from(#04ACEC), to(#0186BA)) !important;
+  background: -moz-linear-gradient(top,  #04ACEC,  #0186BA) !important;
+  color: #FFFFFF !important;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  text-shadow: 2px 2px 3px #FFFFFF;
+}
+#menu-bar li:hover > ul {
+  display: block;
+}
+#menu-bar ul {
+  background: #DDDDDD;
+  background: linear-gradient(top,  #FFFFFF,  #CFCFCF);
+  background: -ms-linear-gradient(top,  #FFFFFF,  #CFCFCF);
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#CFCFCF));
+  background: -moz-linear-gradient(top,  #FFFFFF,  #CFCFCF);
+  display: none;
+  margin: 0;
+  padding: 0;
+  width: 185px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  border: solid 1px #B4B4B4;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 3px #222222;
+  -moz-box-shadow: 2px 2px 3px #222222;
+  box-shadow: 2px 2px 3px #222222;
+}
+#menu-bar ul li {
+  float: none;
+  margin: 0;
+  padding: 0;
+}
+#menu-bar ul a {
+  padding:10px 0px 10px 15px;
+  color:#424242 !important;
+  font-size:14px;
+  font-style:normal;
+  font-family:arial;
+  font-weight: normal;
+  text-shadow: 2px 2px 3px #FFFFFF;
+}
+#menu-bar ul li:first-child > a {
+  border-top-left-radius: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-right-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+}
+#menu-bar ul li:last-child > a {
+  border-bottom-left-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+}
+#menu-bar:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#menu-bar {
+  display: inline-block;
+}
+  html[xmlns] #menu-bar {
+  display: block;
+}
+* html #menu-bar {
+  height: 1%;
+}
+    </style>
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+        <div id="navigation">
+            <ul id="menu-bar">
+              <li class="active"><a href="/"> zSlicer Home </a></li>
+              <li><a href="/network"> Wifi Config </a></li>
+              <li><a href="/print"> Print </a></li>
+              <li><a href="/about"> About US </a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div>
+                <p></p>
+                <h2>Getting start with zSlicer</h2>
+                <p>Wonderful slicing utility for 3D printing</p>
+                <p><a href="/print" class="testbutton">Make use of it today</a></p>
+            </div>
+        </div>
+        <div id="footer">
+            <p>&copy; Beets3d China 2017</p>
+        </div>
+    </div>
+
+  </body>
+</html>
 
