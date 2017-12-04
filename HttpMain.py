@@ -4,7 +4,7 @@ import WifiConfig
  
 app = picoweb.WebApp(__name__)
  
-@app.route("/WifiConfig")
+@app.route("/wifi")
 def getwificonfig(req, resp):
    wifiProfileJson = ujson.dumps(WifiConfig.getWifiProfile())
    yield from picoweb.start_response(resp, content_type = "application/json")
@@ -12,7 +12,12 @@ def getwificonfig(req, resp):
 
 @app.route("/")
 def index(req,resp):
-   yield from picoweb.start_response(resp,content_type = "text/plain")
-   yield from resp.awrite("Hello World!")
+   yield from picoweb.start_response(resp,content_type = "text/html")
+   htmlFile = open('home.html','r')
+   for line in htmlFile:
+      yield from resp.awrite(line)
 
 
+
+
+ 
