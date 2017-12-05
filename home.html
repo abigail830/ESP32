@@ -305,7 +305,7 @@ padding: 8px;
 }
     </style>
 
-      <script type="text/javascript" src="jquery-3.2.1.slim.min.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script type="text/javascript">
 
           function getWifiProfile() {
@@ -313,7 +313,7 @@ padding: 8px;
                 console.log( "success" );
                 console.log( data );
                 document.getElementById("wifi_id").value = data.ssid;
-                document.getElementById("wifi_pwd").value = data.password";
+                document.getElementById("wifi_pwd").value = data.password;
              })
             .done(function() {
                 console.log( "REST request done" );
