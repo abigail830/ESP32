@@ -344,6 +344,21 @@ padding: 8px;
              });
           }
 
+         function reset(){
+             var jqxhr = $.get( "/reset", function(data) {
+                console.log( data );
+             })
+            .done(function() {
+                console.log( "/reset GET request done" );
+            })
+            .fail(function() {
+                console.log( "/reset GET request error" );
+            })
+            .always(function() {
+                console.log( "/reset GET request complete" );
+            });
+          }
+
           function navSwitch(nr) {
             var itemsArr = document.getElementsByClassName('pageDetail');
             for(var i = 0; i < itemsArr.length; i++) {
@@ -403,7 +418,7 @@ padding: 8px;
                 <p/>
                 <p>
                     <a onclick="wifiConfirm()" class="bigbutton">Confirm</a>
-                    <a href="/reset" class="bigbutton">Reset</a>
+                    <a onclick="reset()"  class="bigbutton">Reset</a>
                 </p>
                 <p></p>
             </div>

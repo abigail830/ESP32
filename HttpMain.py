@@ -1,6 +1,7 @@
 import picoweb
 import ujson
 import WifiConfig
+import machine
  
 app = picoweb.WebApp(__name__)
  
@@ -24,6 +25,11 @@ def index(req,resp):
    for line in htmlFile:
       yield from resp.awrite(line)
 
+@app.route("/reset")
+def reset(req,resp):
+    yield from picoweb.start_response(resp)
+    yield from resp.awrite("ESP32 will be hard reset now...")
+    machine.reset()
 
 def qs_parse(qs):
 
