@@ -10,7 +10,10 @@ def getwificonfig(req, resp):
 
 @app.route("/setwifi")
 def setwificonfig(req,resp):
-   print(req.qs)
+   queryString = req.qs
+   print(queryString)
+   parameters = qs_parse(queryString)
+   print(parameters)
    yield from picoweb.start_response(resp)
    yield from resp.awrite("Http Post received.")
 
@@ -20,6 +23,18 @@ def index(req,resp):
    htmlFile = open('home.html','r')
    for line in htmlFile:
       yield from resp.awrite(line)
+
+
+def qs_parse(qs):
+
+  parameters = {}
+  ampersandSplit = qs.split("&")
+
+  for element in ampersandSplit:
+    equalSplit = element.split("=")
+    parameters[equalSplit[0]] = equalSplit[1]
+
+  return parameters
 
 
 
