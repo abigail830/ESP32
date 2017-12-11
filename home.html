@@ -328,11 +328,10 @@ padding: 8px;
           }
 
           function wifiConfirm(){
-
-             ssid = document.getElementById("wifi_id").value;
-             password = document.getElementById("wifi_pwd").value;
-
-             var jqxhr = $.post( "/wifi", { name: "John", time: "2pm" } )
+             var jqxhr = $.post( "/wifi", {
+                    ssid: document.getElementById("wifi_id").value,
+                    password: document.getElementById("wifi_pwd").value
+              })
              .done(function() {
                 console.log( "/wifi POST request done" );
              })
