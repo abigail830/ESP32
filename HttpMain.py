@@ -11,11 +11,11 @@ def getwificonfig(req, resp):
 @app.route("/setwifi")
 def setwificonfig(req,resp):
    queryString = req.qs
-   print(queryString)
    parameters = qs_parse(queryString)
    print(parameters)
+   WifiConfig.setWifiProfile(parameters["ssid"], parameters["password"])
    yield from picoweb.start_response(resp)
-   yield from resp.awrite("Http Post received.")
+   yield from resp.awrite("Wifi profile updated successfully.")
 
 @app.route("/")
 def index(req,resp):
