@@ -328,7 +328,7 @@ padding: 8px;
           }
 
           function wifiConfirm(){
-             var jqxhr = $.post( "/wifi", {
+             var jqxhr = $.get( "/setwifi", {
                     ssid: document.getElementById("wifi_id").value,
                     password: document.getElementById("wifi_pwd").value
               })
