@@ -11,8 +11,10 @@ def getwificonfig(req, resp):
       yield from picoweb.start_response(resp, content_type = "application/json")
       yield from resp.awrite(wifiProfileJson)
    else:
-      postData = ujson.loads(req.data)
+      postData = req.read_form_data()
       print(postData)
+      yield from picoweb.start_response(resp, content_type="text/html")
+      yield from resp.awrite("Http Post received.")
 
 @app.route("/")
 def index(req,resp):
