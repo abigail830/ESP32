@@ -7,9 +7,14 @@ app = picoweb.WebApp(__name__)
 @app.route("/wifi")
 def getwificonfig(req, resp):
    if(req.method == 'GET'):
-      picoweb.jsonify(resp, WifiConfig.getWifiProfile())
+      wifiProfileJson = ujson.dumps(WifiConfig.getWifiProfile())
+      yield from picoweb.start_response(resp, content_type = "application/json")
+      yield from resp.awrite(wifiProfileJson)
    else:
-      print(req.form)
+      postData = req.read_form_data()
+      print(postData)
+      print(postData.data)
+      print(postData.form)
       yield from picoweb.start_response(resp, content_type="text/html")
       yield from resp.awrite("Http Post received.")
 
