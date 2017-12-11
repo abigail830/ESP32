@@ -1,23 +1,32 @@
 import WifiProfile
+import network
 
-def connectSTA():
-    import network
+def connect():
 
-    station = network.WLAN(network.STA_IF)
 
-    if station.isconnected() == True:
-        print("Already connected")
-        ip=station.ifconfig() 
-        return ip[0] 
+    if(WifiProfile.password == 'none'):
+       ap = network.WLAN(network.AP_IF)
+       ap.active(True)
+       ap.config(essid='ELSA-AP')
+       ip = ap.ifconfig()
+       print(ip)
+       return ip[0]
+    else:
+       station = network.WLAN(network.STA_IF)
 
-    station.active(True)
-    station.connect(WifiProfile.ssid, WifiProfile.password)
+       if station.isconnected() == True:
+           print("Already connected")
+           ip=station.ifconfig()
+           return ip[0]
 
-    while station.isconnected() == False:
-        pass
+       station.active(True)
+       station.connect(WifiProfile.ssid, WifiProfile.password)
 
-    print("Connection successful")
-    ip = station.ifconfig()
-    print(ip)
-    return ip[0]
+       while station.isconnected() == False:
+          pass
+
+       print("Connection successful")
+       ip = station.ifconfig()
+       print(ip)
+       return ip[0]
 

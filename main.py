@@ -1,4 +1,4 @@
 import WifiConnect
 
-WifiConnect.connectSTA()
+WifiConnect.connect()
 

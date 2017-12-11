@@ -316,15 +316,32 @@ padding: 8px;
                 document.getElementById("wifi_pwd").value = data.password;
              })
             .done(function() {
-                console.log( "REST request done" );
+                console.log( "/wifi GET request done" );
             })
             .fail(function() {
-                console.log( "REST request error" );
+                console.log( "/wifi GET request error" );
             })
             .always(function() {
-                console.log( "REST request complete" );
+                console.log( "/wifi GET request complete" );
             });
 
+          }
+
+          function wifiConfirm(){
+
+             ssid = document.getElementById("wifi_id").value;
+             password = document.getElementById("wifi_pwd").value;
+
+             var jqxhr = $.post( "/wifi", { name: "John", time: "2pm" } )
+             .done(function() {
+                console.log( "/wifi POST request done" );
+             })
+             .fail(function() {
+                console.log( "/wifi POST request error" );
+             })
+             .always(function() {
+                console.log( "/wifi POST request complete" );
+             });
           }
 
           function navSwitch(nr) {
@@ -378,12 +395,16 @@ padding: 8px;
                 <p><a onclick="navSwitch(2)" class="bigbutton">Make use of it today</a></p>
             </div>
             <div id="wifi_config" class="pageDetail">
-                <p></p>
+                <p/>
                 <h2>Config your WIFI profile:</h2>
+                <p>Set the password to 'none' if you want to startup as HOTSPOT</p>
                 <p>UserID: <input type="text" class="text-input" id="wifi_id" value=""></p>
                 <p>Password: <input type="text" class="text-input" id="wifi_pwd" value=""></p>
-                <p></p>
-                <p><a href="/wificonfig" class="bigbutton">Confirm</a></p>
+                <p/>
+                <p>
+                    <a onclick="wifiConfirm()" class="bigbutton">Confirm</a>
+                    <a href="/reset" class="bigbutton">Reset</a>
+                </p>
                 <p></p>
             </div>
             <div id="print_page" class="pageDetail">
