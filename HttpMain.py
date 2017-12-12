@@ -31,8 +31,20 @@ def reset(req,resp):
     yield from resp.awrite("ESP32 will be hard reset now...")
     machine.reset()
 
-def qs_parse(qs):
+@app.route("/movez")
+def movez(req,resp):
+   queryString = req.qs
+   parameters = qs_parse(queryString)
+   print(parameters["step"])
+   if(parameters["step"]>0):
+      print('Going to move up for ' + parameters["step"])
+   else:
+      print('Going to move down for ' + parameters["step"])
+   yield from picoweb.start_response(resp)
+   yield from resp.awrite("ESP32 will try to move Z now...")
 
+
+def qs_parse(qs):
   parameters = {}
   ampersandSplit = qs.split("&")
 

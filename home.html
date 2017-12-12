@@ -359,6 +359,28 @@ padding: 8px;
             });
           }
 
+          function moveZ(step){
+
+             var jqxhr = $.get( "/movez", {
+                    step: step,
+              })
+             .done(function(data) {
+                console.log( "/movez GET request done" );
+                console.log(data);
+             })
+             .fail(function() {
+                console.log( "/movez GET request error" );
+             })
+             .always(function() {
+                console.log( "/movez GET request complete" );
+             });
+          }
+
+          function homeZ(){
+              console.log("homing the Z.");
+              moveZ(-100);
+          }
+
           function navSwitch(nr) {
             var itemsArr = document.getElementsByClassName('pageDetail');
             for(var i = 0; i < itemsArr.length; i++) {
@@ -426,17 +448,17 @@ padding: 8px;
 
                 <h2>Step1: Setup printer to freezen at home</h2>
                 <p>
-                    <a class="smbutton">+50</a>
-                    <a class="smbutton">+10</a>
-                    <a class="smbutton">+5</a>
-                    <a class="smbutton">+1</a>
-                    <a class="smbutton">+0.25</a>
-                    <a class="bigbutton">Home</a>
-                    <a class="smbutton">-0.25</a>
-                    <a class="smbutton">-1</a>
-                    <a class="smbutton">-5</a>
-                    <a class="smbutton">-10</a>
-                    <a class="smbutton">-50</a>
+                    <a class="smbutton" onclick="moveZ(50)">+50</a>
+                    <a class="smbutton" onclick="moveZ(10)">+10</a>
+                    <a class="smbutton" onclick="moveZ(5)">+5</a>
+                    <a class="smbutton" onclick="moveZ(1)">+1</a>
+                    <a class="smbutton" onclick="moveZ(0.25)">+0.25</a>
+                    <a class="bigbutton" onclick="homeZ()">Home</a>
+                    <a class="smbutton" onclick="moveZ(-0.25)">-0.25</a>
+                    <a class="smbutton" onclick="moveZ(-1)">-1</a>
+                    <a class="smbutton" onclick="moveZ(-5)">-5</a>
+                    <a class="smbutton" onclick="moveZ(-10)">-10</a>
+                    <a class="smbutton" onclick="moveZ(-50)">-50</a>
                 </p>
 
                 <p>
