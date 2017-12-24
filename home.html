@@ -23,7 +23,7 @@ p {
 
 #wrapper {
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
 }
 
 #navigation {
@@ -37,7 +37,7 @@ p {
 #content {
     float: left;
     background: #FFFFFF;
-    width: 80%;
+    width: 90%;
     height: 400px;
     margin: 10px 10px 10px 10px;
     padding: 6px 6px 4px 6px;
@@ -47,7 +47,7 @@ p {
 
 #footer {
     height: 40px;
-    width: 80%;
+    width: 90%;
     background: #FFFFFF;
     clear: both;
     text-align:center;
@@ -80,7 +80,7 @@ p {
   background: -moz-linear-gradient(top,  #468CCF,  #63B8EE);
 }
 #menu-bar {
-  width: 80%;
+  width: 90%;
   margin: 0px 0px 0px 0px;
   padding: 6px 6px 4px 6px;
   height: 40px;
@@ -241,8 +241,8 @@ p {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  margin: 3px;
-  padding: 6px 5px;
+  margin: 2px;
+  padding: 5px 5px;
   border: none;
   -webkit-border-radius: 6px;
   border-radius: 6px;
@@ -266,57 +266,30 @@ float: left;
 .both {
 clear: both;
 }
-.file-upload-container {
-width:80%;
-border: 1px solid #efefef;
-padding:5px;
-margin-left: 10px;
-text-align:center;
-border-radius: 6px;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-background: #fbfbfa;
-}
-.file-upload-override-button {
-position: relative;
-overflow: hidden;
-cursor: pointer;
-background-color:#79bbff;
-}
-.file-upload-override-button:hover {
-background-color:#378de5;
-}
-.file-upload-override-button:active {
-position:relative; top:1px;
-}
-.file-upload-button {
-position: absolute;
-height: 50px;
-top: -10px;
-left: -10px;
-cursor: pointer;
-opacity: 0;
-filter:alpha(opacity=0);
-}
-.file-upload-filename {
-margin-left: 10px;
-height: auto;
-padding: 8px;
-}
+
     </style>
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script type="text/javascript">
 
           function initPinTable(){
-            var pinListJson = [{id:23, PinNum:"P23", Description:"GPIO23/VPSIMOSI", PWM:true},
-                             {id:22, PinNum:"P22", Description:"GPIO22", PWM:true},
-                             {id:1, PinNum:"TX", Description:"GPIO01/TX0", PWM:true},
-                             {id:3, PinNum:"RX", Description:"GPIO03/RX0", PWM:true},
-                             {id:21, PinNum:"P21", Description:"GPIO21", PWM:true},
-                             {id:19, PinNum:"P19", Description:"GPIO19/VPSIMISO", PWM:true},
-                             {id:18, PinNum:"P18", Description:"GPIO18/VPSI SCK", PWM:true},
-                             {id:5, PinNum:"P5", Description:"GPIO05/VPSI SS", PWM:true}];
+            var pinListJson = [{id:23, PinNum:"P23", Description:"GPIO23/VPSIMOSI", PWM:true,ADC:false},
+                             {id:22, PinNum:"P22", Description:"GPIO22", PWM:true,ADC:false},
+                             {id:1, PinNum:"TX", Description:"GPIO1/TX0", PWM:true,ADC:false},
+                             {id:3, PinNum:"RX", Description:"GPIO3/RX0", PWM:true,ADC:false},
+                             {id:21, PinNum:"P21", Description:"GPIO21", PWM:true,ADC:false},
+                             {id:19, PinNum:"P19", Description:"GPIO19/VPSIMISO", PWM:true,ADC:false},
+                             {id:18, PinNum:"P18", Description:"GPIO18/VPSI SCK", PWM:true,ADC:false},
+                             {id:5, PinNum:"P5", Description:"GPIO5/VPSI SS", PWM:true,ADC:false},
+                             {id:17, PinNum:"P17", Description:"GPIO17", PWM:true,ADC:false},
+                             {id:16, PinNum:"P16", Description:"GPIO16", PWM:true,ADC:false},
+                             {id:5, PinNum:"P4", Description:"GPIO4/ADC10/TOUCH0", PWM:true,ADC:10},
+                             {id:0, PinNum:"P0", Description:"GPIO0/ADC11/TOUCH1", PWM:true,ADC:11},
+                             {id:2, PinNum:"P2", Description:"GPIO2/ADC12/TOUCH2", PWM:true,ADC:12},
+                             {id:15, PinNum:"P15", Description:"GPIO15/ADC13/TOUCH3", PWM:true,ADC:13},
+                             {id:8, PinNum:"SD1", Description:"GPIO8/FLASH D1", PWM:false,ADC:false},
+                             {id:7, PinNum:"SD0", Description:"GPIO7/FLASH D0", PWM:false,ADC:false},
+                             {id:6, PinNum:"CLK", Description:"GPIO6/FLASH SCK", PWM:false,ADC:false}];
 
 
             var pinTable = document.getElementById("pinTable");
@@ -324,7 +297,13 @@ padding: 8px;
                 pinTable.removeChild(pinTable.firstChild);
             }
 
-            var header = "<tr><th>Pin</th><th>Description</th><th>Get Pin Value</th><th>Set Pin Value</th><th><div>PWM</div><div>Freq=1HZ~1kHZ, Duty=0-1024</div></th></tr>";
+            var header = "<tr><th>Pin</th>"
+                +"<th>Description</th>"
+                +"<th>Get Pin Value</th>"
+                +"<th>Set Pin Value</th>"
+                +"<th><div>PWM</div><div>Freq=1HZ~1kHZ, Duty=0-1024</div></th>"
+                +"<th>Get ADC Value</th>"
+                +"</tr>";
             $("#pinTable").append(header);
 
             for(var i=0;i<pinListJson.length;i++){
@@ -339,14 +318,21 @@ padding: 8px;
                         +"<a onclick=\"setPinValue("+pinListJson[i]["id"]+")\" class=\"smbutton\">Set</a>"
                         +"<div id=\"setResultPin"+pinListJson[i]["id"]+"\"></div></td>";
                 if(pinListJson[i]["PWM"]==true){
-                    var td5="<td>Freq:<input type=\"text\" name=\"freq\" maxlength=4 size=4> "
-                    +"Duty:<input type=\"text\" name=\"duty\" maxlength=4 size=4>"
+                    var td5="<td>Freq:<input type=\"text\" name=\"freq"+pinListJson[i]["id"]+"\" maxlength=4 size=4> "
+                    +"Duty:<input type=\"text\" name=\"duty"+pinListJson[i]["id"]+"\" maxlength=4 size=4>"
                     +"<a onclick=\"setPWMValue("+pinListJson[i]["id"]+")\" class=\"smbutton\">Enable</a></td>";
                 }else{
                     var td5="<td>N/A</td>";
                 }
+                if(pinListJson[i]["ADC"]==false){
+                    var td6="<td>N/A</td>";
+                }else{
+                    var td6="<td><a onclick=\"getPinADCValue("+pinListJson[i]["ADC"]+")\" "
+                        +"class=\"smbutton\">Get ADC</a><div id=\"getADCResultPin"+pinListJson[i]["ADC"]+"\""
+                        +"></div></td>";
+                }
                 var endtr = "</tr>";
-                $("#pinTable").append(tr+td1+td2+td3+td4+td5+endtr);
+                $("#pinTable").append(tr+td1+td2+td3+td4+td5+td6+endtr);
 
             }
           }
@@ -420,6 +406,24 @@ padding: 8px;
              });
           }
 
+          function getPinADCValue(pin){
+             var jqxhr = $.get( "/getPinADCValue", {
+                    pin: pin,
+              })
+             .done(function(data) {
+                console.log( "/getPinADCValue GET request done" );
+                console.log(data);
+                var idTag = "getADCResultPin"+pin;
+                document.getElementById(idTag).innerHTML = data;
+             })
+             .fail(function() {
+                console.log( "/getPinADCValue GET request error" );
+             })
+             .always(function() {
+                console.log( "/getPinADCValue GET request complete" );
+             });
+          }
+
           function setPinValue(pin){
              var groupName = "group"+pin;
              var targetValue = document.querySelector('input[name='+groupName+']:checked').value;
@@ -443,8 +447,15 @@ padding: 8px;
           }
 
            function setPWMValue(pin){
+             var freqValue = "freq"+pin;
+             var dutyValue = "duty"+pin;
+             var targetFreqValue = document.querySelector('input[name='+freqValue+']').value;
+             var targetDutyValue = document.querySelector('input[name='+dutyValue+']').value;
+             console.log("target freq is "+targetFreqValue + " and target duty is " + targetDutyValue);
              var jqxhr = $.get( "/setPWMValue", {
                     pin: pin,
+                    freq: targetFreqValue,
+                    duty: targetDutyValue,
               })
              .done(function(data) {
                 console.log( "/setPWMValue GET request done" );

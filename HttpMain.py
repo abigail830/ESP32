@@ -46,8 +46,20 @@ def getPinValue(req,resp):
    yield from picoweb.start_response(resp)
    yield from resp.awrite(str(pin.value()))
 
+
+@app.route("/getPinADCValue")
+def getPinADCValue(req,resp):
+   queryString = req.qs
+   parameters = qs_parse(queryString)
+   pin_num = parameters["pin"]
+   pin = machine.ADC(int(pin_num))
+   print('getPinADCValue for ' + pin_num + ' and result is '+str(pin.read()))
+   yield from picoweb.start_response(resp)
+   yield from resp.awrite(str(pin.read()))
+
+
 @app.route("/setPinValue")
-def getPinValue(req,resp):
+def setPinValue(req,resp):
    queryString = req.qs
    parameters = qs_parse(queryString)
    pin_num = parameters["pin"]
@@ -58,14 +70,24 @@ def getPinValue(req,resp):
    yield from picoweb.start_response(resp)
    yield from resp.awrite("Done!")
 
+
 @app.route("/setPWMValue")
-def getPinValue(req,resp):
+def setPWMValue(req,resp):
    queryString = req.qs
    parameters = qs_parse(queryString)
    pin_num = parameters["pin"]
-   print('setPWMValue for ' + pin_num)
+   targetFreq = parameters["freq"]
+   targetDuty = parameters["duty"]
+   print('Going to setPinValue for ' + pin_num + ' with target Freq/Duty value: ' + targetFreq+"/"+targetDuty)
+
+   pin = machine.Pin(int(pin_num))
+   pwmPin = machine.PWM(pin)
+   pwmPin.freq(int(targetFreq))
+   pwmPin.duty(int(targetDuty))
+
    yield from picoweb.start_response(resp)
-   yield from resp.awrite("Going to set PWM Value")
+   yield from resp.awrite("Done!")
+
 
 def qs_parse(qs):
   parameters = {}
