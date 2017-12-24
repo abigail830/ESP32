@@ -410,7 +410,7 @@ padding: 8px;
                 console.log( "/getPinValue GET request done" );
                 console.log(data);
                 var idTag = "getResultPin"+pin;
-                ${idTag}.innerHTML = data;
+                document.getElementById(idTag).innerHTML = data;
              })
              .fail(function() {
                 console.log( "/getPinValue GET request error" );
@@ -428,7 +428,7 @@ padding: 8px;
                 console.log( "/setPinValue GET request done" );
                 console.log(data);
                 var idTag = "setResultPin"+pin;
-                ${idTag}.innerHTML = "Done!";
+                document.getElementById(idTag).innerHTML = "Done!";
              })
              .fail(function() {
                 console.log( "/setPinValue GET request error" );
@@ -446,7 +446,7 @@ padding: 8px;
                 console.log( "/setPWMValue GET request done" );
                 console.log(data);
                 var idTag = "setPWMValue"+pin;
-                ${idTag}.innerHTML = "Done!";
+                document.getElementById(idTag).innerHTML = "Done!";
              })
              .fail(function() {
                 console.log( "/setPWMValue GET request error" );
