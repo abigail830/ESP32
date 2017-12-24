@@ -6,6 +6,22 @@ import machine
 app = picoweb.WebApp(__name__)
 
 
+@app.route("/")
+def index(req,resp):
+   yield from picoweb.start_response(resp,content_type = "text/html")
+   htmlFile = open('home.html','r')
+   for line in htmlFile:
+      yield from resp.awrite(line)
+
+
+@app.route("/home.css")
+def loadCss(req,resp):
+   yield from picoweb.start_response(resp,content_type = "text/css")
+   cssFile = open('home.css','r')
+   for line in cssFile:
+      yield from resp.awrite(line)
+
+
 @app.route("/wifi")
 def getwificonfig(req, resp):
    yield from picoweb.jsonify(resp, WifiConfig.getWifiProfile())
@@ -19,14 +35,6 @@ def setwificonfig(req,resp):
    WifiConfig.setWifiProfile(parameters["ssid"], parameters["password"])
    yield from picoweb.start_response(resp)
    yield from resp.awrite("Wifi profile updated successfully.")
-
-
-@app.route("/")
-def index(req,resp):
-   yield from picoweb.start_response(resp,content_type = "text/html")
-   htmlFile = open('home.html','r')
-   for line in htmlFile:
-      yield from resp.awrite(line)
 
 
 @app.route("/reset")
