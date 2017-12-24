@@ -410,6 +410,8 @@ padding: 8px;
              .done(function(data) {
                 console.log( "/getPinValue GET request done" );
                 console.log(data);
+                var idTag = "getResultPin"+pin;
+                ${idTag}.innerHTML = data;
              })
              .fail(function() {
                 console.log( "/getPinValue GET request error" );
