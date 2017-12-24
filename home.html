@@ -241,12 +241,12 @@ p {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  margin: 1px;
+  margin: 3px;
   padding: 6px 5px;
   border: none;
   -webkit-border-radius: 6px;
   border-radius: 6px;
-  font: normal 16px/normal Arial, Helvetica, sans-serif;
+  font: normal 14px/normal Arial, Helvetica, sans-serif;
   color: rgba(255,255,255,0.9);
   -o-text-overflow: clip;
   text-overflow: clip;
@@ -308,6 +308,49 @@ padding: 8px;
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script type="text/javascript">
 
+          function initPinTable(){
+            var pinListJson = [{id:23, PinNum:"P23", Description:"GPIO23/VPSIMOSI", PWM:true},
+                             {id:22, PinNum:"P22", Description:"GPIO22", PWM:true},
+                             {id:1, PinNum:"TX", Description:"GPIO01/TX0", PWM:true},
+                             {id:3, PinNum:"RX", Description:"GPIO03/RX0", PWM:true},
+                             {id:21, PinNum:"P21", Description:"GPIO21", PWM:true},
+                             {id:19, PinNum:"P19", Description:"GPIO19/VPSIMISO", PWM:true},
+                             {id:18, PinNum:"P18", Description:"GPIO18/VPSI SCK", PWM:true},
+                             {id:5, PinNum:"P5", Description:"GPIO05/VPSI SS", PWM:true}];
+
+
+            var pinTable = document.getElementById("pinTable");
+            while (pinTable.firstChild) {
+                pinTable.removeChild(pinTable.firstChild);
+            }
+
+            var header = "<tr><th>Pin</th><th>Description</th><th>Get Pin Value</th><th>Set Pin Value</th><th><div>PWM</div><div>Freq=1HZ~1kHZ, Duty=0-1024</div></th></tr>";
+            $("#pinTable").append(header);
+
+            for(var i=0;i<pinListJson.length;i++){
+                var tr="<tr>";
+                var td1="<td>"+pinListJson[i]["PinNum"]+"</td>";
+                var td2="<td>"+pinListJson[i]["Description"]+"</td>";
+                var td3="<td><a onclick=\"getPinValue("+pinListJson[i]["id"]+")\" "
+                        +"class=\"smbutton\">Get</a><div id=\"getResultPin"+pinListJson[i]["id"]+"\""
+                        +"></div></td>";
+                var td4="<td><input type=\"radio\" value=\"0\" name=\"group"+pinListJson[i]["id"]+"23\">0"
+                        +"<input type=\"radio\" value=\"1\" name=\"group"+pinListJson[i]["id"]+"23\">1"
+                        +"<a onclick=\"setPinValue("+pinListJson[i]["id"]+")\" class=\"smbutton\">Set</a>"
+                        +"<div id=\"setResultPin"+pinListJson[i]["id"]+"\"></div></td>";
+                if(pinListJson[i]["PWM"]==true){
+                    var td5="<td>Freq:<input type=\"text\" name=\"freq\" maxlength=4 size=4> "
+                    +"Duty:<input type=\"text\" name=\"duty\" maxlength=4 size=4>"
+                    +"<a onclick=\"setPWMValue("+pinListJson[i]["id"]+")\" class=\"smbutton\">Enable</a></td>";
+                }else{
+                    var td5="<td>N/A</td>";
+                }
+                var endtr = "</tr>";
+                $("#pinTable").append(tr+td1+td2+td3+td4+td5+endtr);
+
+            }
+          }
+
           function getWifiProfile() {
              var jqxhr = $.getJSON( "/wifi", function(data) {
                 console.log( "success" );
@@ -359,26 +402,21 @@ padding: 8px;
             });
           }
 
-          function moveZ(step){
+          function getPinValue(pin){
 
-             var jqxhr = $.get( "/movez", {
-                    step: step,
+             var jqxhr = $.get( "/getPinValue", {
+                    pin: pin,
               })
              .done(function(data) {
-                console.log( "/movez GET request done" );
+                console.log( "/getPinValue GET request done" );
                 console.log(data);
              })
              .fail(function() {
-                console.log( "/movez GET request error" );
+                console.log( "/getPinValue GET request error" );
              })
              .always(function() {
-                console.log( "/movez GET request complete" );
+                console.log( "/getPinValue GET request complete" );
              });
-          }
-
-          function homeZ(){
-              console.log("homing the Z.");
-              moveZ(-100);
           }
 
           function navSwitch(nr) {
@@ -408,6 +446,8 @@ padding: 8px;
 
             if(nr==1){
                getWifiProfile();
+            }else if(nr==2){
+               initPinTable();
             }
           }
       </script>
@@ -418,17 +458,18 @@ padding: 8px;
   <div id="wrapper">
         <div id="navigation">
             <ul id="menu-bar">
-              <li class="active submenu"><a onclick="navSwitch(0)"> zSlicer Home </a></li>
+              <li class="active submenu"><a onclick="navSwitch(0)"> ESP32 Home </a></li>
               <li class="submenu"><a onclick="navSwitch(1)"> Wifi Config </a></li>
-              <li class="submenu"><a onclick="navSwitch(2)"> Print </a></li>
-              <li class="submenu"><a onclick="navSwitch(3)"> About US </a></li>
+              <li class="submenu"><a onclick="navSwitch(2)"> Control </a></li>
+              <li class="submenu"><a onclick="navSwitch(3)"> PIN Map </a></li>
+                <li class="submenu"><a onclick="navSwitch(4)"> About US </a></li>
             </ul>
         </div>
         <div id="content">
             <div id="home_page" class="pageDetail" style="display:block">
                 <p></p>
-                <h1>Getting start with zSlicer</h1>
-                <p>Wonderful slicing utility for 3D printing</p>
+                <h1>Getting start with ESP32</h1>
+                <p>Wonderful control panel for ESP32</p>
                 <p><a onclick="navSwitch(2)" class="bigbutton">Make use of it today</a></p>
             </div>
             <div id="wifi_config" class="pageDetail">
@@ -444,38 +485,16 @@ padding: 8px;
                 </p>
                 <p></p>
             </div>
-            <div id="print_page" class="pageDetail">
-
-                <h2>Step1: Setup printer to freezen at home</h2>
-                <p>
-                    <a class="smbutton" onclick="moveZ(50)">+50</a>
-                    <a class="smbutton" onclick="moveZ(10)">+10</a>
-                    <a class="smbutton" onclick="moveZ(5)">+5</a>
-                    <a class="smbutton" onclick="moveZ(1)">+1</a>
-                    <a class="smbutton" onclick="moveZ(0.25)">+0.25</a>
-                    <a class="bigbutton" onclick="homeZ()">Home</a>
-                    <a class="smbutton" onclick="moveZ(-0.25)">-0.25</a>
-                    <a class="smbutton" onclick="moveZ(-1)">-1</a>
-                    <a class="smbutton" onclick="moveZ(-5)">-5</a>
-                    <a class="smbutton" onclick="moveZ(-10)">-10</a>
-                    <a class="smbutton" onclick="moveZ(-50)">-50</a>
-                </p>
-
-                <p>
-                    <h2>Step2: Update file to print</h2>
-                    <div class="file-upload-container">
-                        <div class="file-upload-override-button left">
-                            Choose file
-                            <input type="file" class="file-upload-button" id="file-upload-button"/>
-                        </div>
-                        <div class="file-upload-filename left" id="file-upload-filename">No file selected</div>
-                        <div class="both"></div>
-                    </div>
-                </p>
+            <div id="control_page" class="pageDetail">
+                <br/>
+                <table border="1" id="pinTable"></table>
+            </div>
+            <div id="pinmap_page" class="pageDetail">
+                <img src="http://wiki.ai-thinker.com/_media/esp32/boards/nodemcu/nodemcu_32s_pin.png?cache="/>
             </div>
             <div id="about_page" class="pageDetail">
-                <h1>Nth important about us</h1>
-                <p></p>
+                <p><a href="http://wiki.ai-thinker.com/esp32/boards/nodemcu_32s">NodeMCU ESP32 Datasheet</a></p>
+                <p><a href="https://github.com/abigail830/ESP32">Github: https://github.com/abigail830/ESP32 </a></p>
             </div>
         </div>
         <div id="footer">

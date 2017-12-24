@@ -4,10 +4,12 @@ import WifiConfig
 import machine
  
 app = picoweb.WebApp(__name__)
- 
+
+
 @app.route("/wifi")
 def getwificonfig(req, resp):
    yield from picoweb.jsonify(resp, WifiConfig.getWifiProfile())
+
 
 @app.route("/setwifi")
 def setwificonfig(req,resp):
@@ -18,6 +20,7 @@ def setwificonfig(req,resp):
    yield from picoweb.start_response(resp)
    yield from resp.awrite("Wifi profile updated successfully.")
 
+
 @app.route("/")
 def index(req,resp):
    yield from picoweb.start_response(resp,content_type = "text/html")
@@ -25,23 +28,23 @@ def index(req,resp):
    for line in htmlFile:
       yield from resp.awrite(line)
 
+
 @app.route("/reset")
 def reset(req,resp):
     yield from picoweb.start_response(resp)
     yield from resp.awrite("ESP32 will be hard reset now...")
     machine.reset()
 
-@app.route("/movez")
-def movez(req,resp):
+
+@app.route("/getPinValue")
+def getPinValue(req,resp):
    queryString = req.qs
    parameters = qs_parse(queryString)
-   print(parameters["step"])
-   if(parameters["step"]>0):
-      print('Going to move up for ' + parameters["step"])
-   else:
-      print('Going to move down for ' + parameters["step"])
+   pin_num = parameters["pin"]
+   pin = machine.Pin(pin_num)
+   print('getPinValue for ' + pin_num + ' and result is '+pin.value())
    yield from picoweb.start_response(resp)
-   yield from resp.awrite("ESP32 will try to move Z now...")
+   yield from resp.awrite(pin.value())
 
 
 def qs_parse(qs):
