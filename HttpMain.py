@@ -41,7 +41,7 @@ def getPinValue(req,resp):
    queryString = req.qs
    parameters = qs_parse(queryString)
    pin_num = parameters["pin"]
-   pin = machine.Pin(pin_num)
+   pin = machine.Pin(int(pin_num))
    print('getPinValue for ' + pin_num + ' and result is '+pin.value())
    yield from picoweb.start_response(resp)
    yield from resp.awrite(pin.value())
