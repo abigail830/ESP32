@@ -403,7 +403,6 @@ padding: 8px;
           }
 
           function getPinValue(pin){
-
              var jqxhr = $.get( "/getPinValue", {
                     pin: pin,
               })
@@ -418,6 +417,42 @@ padding: 8px;
              })
              .always(function() {
                 console.log( "/getPinValue GET request complete" );
+             });
+          }
+
+          function setPinValue(pin){
+             var jqxhr = $.get( "/setPinValue", {
+                    pin: pin,
+              })
+             .done(function(data) {
+                console.log( "/setPinValue GET request done" );
+                console.log(data);
+                var idTag = "setResultPin"+pin;
+                ${idTag}.innerHTML = "Done!";
+             })
+             .fail(function() {
+                console.log( "/setPinValue GET request error" );
+             })
+             .always(function() {
+                console.log( "/setPinValue GET request complete" );
+             });
+          }
+
+           function setPWMValue(pin){
+             var jqxhr = $.get( "/setPWMValue", {
+                    pin: pin,
+              })
+             .done(function(data) {
+                console.log( "/setPWMValue GET request done" );
+                console.log(data);
+                var idTag = "setPWMValue"+pin;
+                ${idTag}.innerHTML = "Done!";
+             })
+             .fail(function() {
+                console.log( "/setPWMValue GET request error" );
+             })
+             .always(function() {
+                console.log( "/setPWMValue GET request complete" );
              });
           }
 

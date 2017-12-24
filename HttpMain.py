@@ -46,6 +46,23 @@ def getPinValue(req,resp):
    yield from picoweb.start_response(resp)
    yield from resp.awrite(str(pin.value()))
 
+@app.route("/setPinValue")
+def getPinValue(req,resp):
+   queryString = req.qs
+   parameters = qs_parse(queryString)
+   pin_num = parameters["pin"]
+   print('setPinValue for ' + pin_num)
+   yield from picoweb.start_response(resp)
+   yield from resp.awrite("Going to set Pin Value")
+
+@app.route("/setPWMValue")
+def getPinValue(req,resp):
+   queryString = req.qs
+   parameters = qs_parse(queryString)
+   pin_num = parameters["pin"]
+   print('setPWMValue for ' + pin_num)
+   yield from picoweb.start_response(resp)
+   yield from resp.awrite("Going to set PWM Value")
 
 def qs_parse(qs):
   parameters = {}
