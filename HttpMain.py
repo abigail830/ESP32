@@ -14,14 +14,6 @@ def index(req,resp):
       yield from resp.awrite(line)
 
 
-@app.route("/home.css")
-def loadCss(req,resp):
-   yield from picoweb.start_response(resp,content_type = "text/css")
-   cssFile = open('home.css','r')
-   for line in cssFile:
-      yield from resp.awrite(line)
-
-
 @app.route("/wifi")
 def getwificonfig(req, resp):
    yield from picoweb.jsonify(resp, WifiConfig.getWifiProfile())
